@@ -57,7 +57,7 @@ const ReqPage = () => {
     <div className="min-h-screen bg-gray-100 py-8">
       <div className="flex w-full justify-between px-32">
         <h1 className="text-center text-blue-700 text-4xl font-bold mb-8">
-          Ideas
+          Requirements
         </h1>
         <div className="flex h-8">
           <input

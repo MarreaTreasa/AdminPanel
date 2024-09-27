@@ -5,11 +5,12 @@ const AddEventPopup = ({ onClose }) => {
   const [eventType, setEventType] = useState("");
   const [eventDomain, setEventDomain] = useState("");
   const [eventDate, setEventDate] = useState("");
+  const [eventCategory, setEventCategory] = useState("");
   const [eventDescription, setEventDescription] = useState("");
   const [newEventType, setNewEventType] = useState("");
   const [newEventDomain, setNewEventDomain] = useState("");
-  const [newCollege, setNewCollege] = useState("");
-
+  const [newEventCategory, setNewEventCategory] = useState("");
+  const eventCategories=["Microevent","Main event"]
   const eventTypes = ["Workshop", "Seminar", "Conference", "Training", "Other"];
   const eventDomains = [
     "Hospital",
@@ -17,22 +18,6 @@ const AddEventPopup = ({ onClose }) => {
     "Sustainability",
     "Fintech",
     "Other",
-  ];
-  const colleges = [
-    "College of Engineering, Trivandrum",
-    "NIT Calicut",
-    "Government Engineering College, Thrissur",
-    "Rajiv Gandhi Institute of Technology, Kottayam",
-    "TKM College of Engineering, Kollam",
-    "Model Engineering College, Thrikkakara",
-    "Government Engineering College, Barton Hill",
-    "Mar Athanasius College of Engineering, Kothamangalam",
-    "Government Engineering College, Kozhikode",
-    "SCMS School of Engineering and Technology, Ernakulam",
-    "Amal Jyothi College of Engineering, Kanjirappally",
-    "Federal Institute of Science and Technology (FISAT), Angamaly",
-    "Vidya Academy of Science and Technology, Thrissur",
-    "LBS Institute of Technology for Women, Trivandrum",
   ];
 
   const handleSubmit = (e) => {
@@ -43,6 +28,7 @@ const AddEventPopup = ({ onClose }) => {
       eventType,
       eventDomain,
       eventDate,
+      eventCategory,
       eventDescription,
     });
     onClose(); // Close the popup after submission
@@ -63,6 +49,38 @@ const AddEventPopup = ({ onClose }) => {
               required
             />
           </div>
+
+          <div className="mb-4">
+            <label className="block mb-1">Event Category:</label>
+            <select
+              className="border border-gray-300 p-2 w-full"
+              value={eventCategory}
+              onChange={(e) => {
+                const value = e.target.value;
+                setEventCategory(value);
+                if (value === "Other") {
+                  setNewEventCategory(""); // Reset input field
+                }
+              }}
+            >
+              <option value="">Select Event Category</option>
+              {eventCategories.map((category) => (
+                <option key={category} value={category}>
+                  {category}
+                </option>
+              ))}
+            </select>
+            {eventCategory === "Other" && (
+              <input
+                type="text"
+                className="border border-gray-300 p-2 mt-2 w-full"
+                placeholder="Enter new event domain"
+                value={newEventCategory}
+                onChange={(e) => setNewEventCategory(e.target.value)}
+              />
+            )}
+          </div>
+
           <div className="mb-4">
             <label className="block mb-1">Event Type:</label>
             <select
@@ -93,6 +111,7 @@ const AddEventPopup = ({ onClose }) => {
               />
             )}
           </div>
+
           <div className="mb-4">
             <label className="block mb-1">Event Domain:</label>
             <select
@@ -141,36 +160,6 @@ const AddEventPopup = ({ onClose }) => {
               onChange={(e) => setEventDescription(e.target.value)}
               required
             />
-          </div>
-          <div className="mb-4">
-            <label className="block mb-1">Add New College:</label>
-            <select
-              className="border border-gray-300 p-2 w-full"
-              value={newCollege}
-              onChange={(e) => {
-                const value = e.target.value;
-                setNewCollege(value);
-                if (value === "Other") {
-                  setNewCollege(""); // Reset input field
-                }
-              }}
-            >
-              <option value="">Select College</option>
-              {colleges.map((college) => (
-                <option key={college} value={college}>
-                  {college}
-                </option>
-              ))}
-            </select>
-            {newCollege === "Other" && (
-              <input
-                type="text"
-                className="border border-gray-300 p-2 mt-2 w-full"
-                placeholder="Enter new college name"
-                value={newCollege}
-                onChange={(e) => setNewCollege(e.target.value)}
-              />
-            )}
           </div>
           <div className="flex justify-between">
             <button
